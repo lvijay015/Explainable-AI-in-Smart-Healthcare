@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conversation Log</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url('https://media.istockphoto.com/id/1403178602/photo/gradient-defocused-abstract-photo-smooth-pink-and-blue-color-background.jpg?s=612x612&w=0&k=20&c=q0HoW6JZtZeruJl6eISgs_cjjgmDXEOIHwImE8dVjlI='); /* Replace 'background.jpg' with your image file */
+            background-size: cover;
+            background-repeat: no-repeat;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.352); 
+            border-radius: 15px; 
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .conversation-box {
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            padding: 10px;
+            background-color: #f9f9f9;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Conversation Log</h1>
+        <div id="conversationLog">
+            <!-- Conversation boxes will be appended here -->
+        </div>
+    </div>
+
+    <script>
+        window.onload = function() {
+            fetch('conversation_log.txt')
+            .then(response => response.text())
+            .then(data => {
+                const conversationLog = document.getElementById('conversationLog');
+                const conversations = data.split('Time: ').filter(Boolean);
+                conversations.forEach(conversation => {
+                    const conversationBox = createConversationBox(conversation);
+                    conversationLog.appendChild(conversationBox);
+                });
+            })
+            .catch(error => console.error('Error fetching conversation log:', error));
+        };
+
+        function createConversationBox(conversation) {
+            const conversationBox = document.createElement('div');
+            conversationBox.className = 'conversation-box';
+
+            // Split the conversation into timestamp and messages
+            const [timestamp, ...messages] = conversation.trim().split('\n');
+
+            // Create a div for the timestamp
+            const timestampDiv = document.createElement('div');
+            timestampDiv.textContent = timestamp;
+            conversationBox.appendChild(timestampDiv);
+
+            // Create a div for each message
+            messages.forEach(message => {
+                const messageDiv = document.createElement('div');
+                messageDiv.textContent = message;
+                conversationBox.appendChild(messageDiv);
+            });
+
+            return conversationBox;
+        }
+    </script>
+</body>
+</html>

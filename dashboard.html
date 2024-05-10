@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Healthcare - XAI Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: rgb(255, 255, 255); /* Add opacity to make the text more readable */
+            border-radius: 18px; /* Add border radius for curved corners */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .chat-box {
+            max-height: 300px;
+            overflow-y: auto;
+            padding: 10px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .user-message {
+            align-self: flex-end; /* Align user messages to the right side */
+            background-color: #9045787c;
+            color: #fff;
+            padding: 10px;
+            border-radius: 15px; /* Add border radius for curved corners */
+            margin-bottom: 10px;
+        }
+
+        .xai-message {
+            align-self: flex-start; /* Align XAI messages to the left side */
+            background-color: #a26dbc;
+            color: #fff;
+            padding: 10px;
+            border-radius: 15px; /* Add border radius for curved corners */
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body style="background-image: url('https://images.pexels.com/photos/7130466/pexels-photo-7130466.jpeg?auto=compress&cs=tinysrgb&w=600&lazy=load');
+background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;">
+
+    <div class="container">
+        <h1>XAI - Smart Healthcare</h1>
+        <div class="chat-box" id="chatBox">
+            <!-- Chat messages will be displayed here -->
+        </div>
+        <input type="text" id="userInput" placeholder="Enter Your Health Query" onkeydown="sendMessage(event)">
+    </div>
+
+    <script>
+        function sendMessage(event) {
+            if (event.keyCode === 13) {
+                var userInput = document.getElementById("userInput").value;
+                if (userInput.trim() !== "") {
+                    appendMessage("user", userInput);
+                    // Send user input to XAI for processing
+                    // Example: Here you can send the user input to your server for processing by XAI
+                    // and then receive the response from XAI and display it in the chat box
+                    var xaiResponse = "Based on your query, XAI predicts...";
+                    appendMessage("xai", xaiResponse);
+                    document.getElementById("userInput").value = ""; // Clear the input field after sending message
+                }
+            }
+        }
+
+        function appendMessage(sender, message) {
+            var chatBox = document.getElementById("chatBox");
+            var messageDiv = document.createElement("div");
+            messageDiv.className = (sender === "user") ? "user-message" : "xai-message";
+            messageDiv.textContent = message;
+            chatBox.appendChild(messageDiv);
+            chatBox.scrollTop = chatBox.scrollHeight; // Scroll to bottom of chat box
+        }
+    </script>
+</body>
+</html>

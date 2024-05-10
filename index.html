@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Healthcare - Login</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.600); 
+            border-radius: 15px; 
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body class="index"> 
+    <div class="container">
+        <h1>Smart Healthcare</h1>
+        <div id="loginForm">
+            <h2>Login</h2>
+            <form id="userLoginForm" action="login.php" method="POST">
+                <input type="text" id="username" name="username" placeholder="Username" required>
+                <input type="password" id="password" name="password" placeholder="Password (8 characters)" required>
+                <span id="passwordWarning" class="warning"><?php echo isset($errorMessage) ? $errorMessage : ''; ?></span>
+                <button type="submit">Login</button>
+            </form>
+            <p>Not having an account? <a href="registration.html">Create one</a></p>
+            <button onclick="redirectToHistory()">Check History</button>
+            <h2>Healthcare Professional</h2>
+            <input type="text" id="healthcareId" placeholder="Enter your assigned Id" required>
+            <button type="button" onclick="loginHealthcare()">Login</button>
+        </div>
+    </div>
+    <script src="script.js"></script>
+    <script>
+        function loginHealthcare() {
+            var healthcareId = document.getElementById("healthcareId").value;
+            if (healthcareId === "1234") {
+                window.location.href = "lime_explanations.html";
+            } else {
+                alert("Invalid healthcare professional ID. Please try again.");
+            }
+        }
+        function redirectToHistory() {
+            window.location.href = "conversation_log.html";
+        }
+    </script>
+</body>
+</html>
